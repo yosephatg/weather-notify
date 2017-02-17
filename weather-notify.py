@@ -4,14 +4,34 @@
 
 import requests
 import json
+import logging
+import sys
+import getopt
 
-# yoseph to-dos
-# define url
+def main(args):
+	data = ''
+	message = ''
+	# Load configurations from config.json
+	file = open('config.json', 'r')
+	config = json.load(file)
+	file.close()
 
-# call api, save as json
+	url = 'http://api.openweathermap.org/data/2.5/weather?id=4987064&APPID=' + str(config["owmApiKey"])
+	data = getData(url)
+	print(data)
 
-# parse json, format only info i want 
-# log as debug mode
 
-# read twilio creds from another file
-# send sms via twilio
+def getData(url):
+	# call api, save as json
+	r = requests.get(url)
+	print(r.encoding)
+	print(r.text)
+	return r.text
+
+def parseData(data):
+	print('test')
+
+def notify(message):
+	print("test")
+
+main(sys.argv)
